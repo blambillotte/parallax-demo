@@ -1,7 +1,5 @@
 (function(){
 
-
-
 var viewportHeight = window.innerHeight;
 
 var moon = document.getElementById('moon');
@@ -10,10 +8,12 @@ var headerText = document.getElementById('header-text');
 
 var navBar = document.getElementById('nav-bar');
 var navStick = false;
+// TODO: turn navStick into a generic headerIsShowing var. Then wrap subsequent functions into an IF statement.
 var firstBlock = document.getElementById('first-block');
 
 window.onscroll = function (e) {
   var verticlalPosition;
+  // TODO: if offset results in less than a pixle, then don't repaint DOM. 
   if (pageYOffset) {
     verticlalPosition = pageYOffset;
     //verticlalPosition = window.scrollY;
@@ -41,12 +41,12 @@ window.onscroll = function (e) {
   moon.style.width = moonWidth + '%';
 
   //Rocket Movement
-  var rocketXOffset = verticlalPosition * 1.9;
-  var rocketYOffset = verticlalPosition * -1;
+  var rocketXOffset = Math.min(600, verticlalPosition * 1.9);
+  var rocketYOffset = Math.max(-300, verticlalPosition * -1);
   rocket.style.transform = 'translate(' + rocketXOffset +'px, ' + rocketYOffset + 'px)';
 
   //Rocket Size Grow
-  var rocketWidth = 4 + (verticlalPosition / 50);
+  var rocketWidth = Math.min(8, 4 + (verticlalPosition / 50));
   rocket.style.width = rocketWidth + '%';
 
   //Header Text Movement
