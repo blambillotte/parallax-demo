@@ -5,6 +5,18 @@ body {
   background-color: #0c0c0c;
 }
 
+h1 {
+  font-family: 'Expletus Sans', cursive;
+  color: #257ccd;
+  font-size: 3em;
+}
+
+h2 {
+  font-family: 'Raleway', sans-serif;
+  color: #e6e6e6;
+  font-size: 2em;
+}
+
 /***** Main Grid Containers *****/
 
 #container {
@@ -16,10 +28,9 @@ body {
 }
 
 .header {
-  background-color: #093c6c;
+  /*background-color: #093c6c;*/
   grid-area: header;
   color: #e6e6e6;
-  box-shadow: 0px 2px 13px #093c6c;
   z-index: 1;
 }
 
@@ -51,10 +62,10 @@ body {
   #container {
     display: grid;
     grid-template-areas:  "header header header"
-                          "body body gtr-right"
+                          "body body body"
                           "footer footer footer";
 
-    grid-template-rows: 60px 1fr 20px;
+    grid-template-rows: 40vh 1fr 20px;
     grid-template-columns: 50px minmax(600px,1200px) 1fr;
     height: 100vh;
   }
@@ -86,10 +97,15 @@ body {
 }
 
 .content-center {
-  padding-top: 300px;
-  font-family: 'Raleway', sans-serif;
-  color: #e6e6e6;
-  font-size: 2em;
+  padding-top: 16%;
+}
+
+#first-block {
+  background-image: url("Assets/857-tileable-classic-nebula-space-patterns/4.jpg");
+  /*background-repeat: no-repeat;*/
+  background-position: right top;
+  background-attachment: fixed;
+  background-size: 128%;
 }
 
 #earth-pic {
@@ -98,39 +114,95 @@ body {
 
 /****Nav Bar*****/
 
+.pre-nav {
+  height: 32vh;
+  position: relative;
+}
+
+#header-text {
+  position: absolute;
+  right: 20%;
+  top: 40%;
+}
+
+#moon {
+  width: 8%;
+  position: absolute;
+  left: 15%;
+  top: 17%;
+  z-index: -5;
+}
+
+#rocket {
+  width: 4%;
+  position: absolute;
+  bottom: -25%;
+  left: -5%;
+  z-index: -1;
+  /* TODO: Add a shadow in the :after to show on moonface */
+}
+
+#saturn{
+  width: 14%;
+  position: absolute;
+  right: -21%;
+  top: -101%;
+}
+
 .nav {
+  background-color: #093c6c;
+  transition: background-color .7s ease-in-out;
+  box-shadow: 0px 2px 13px #093c6c;
+  z-index: 10;
+}
+
+.nav:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.nav-fixed {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #0d3052;
+}
+
+.nav-items {
   float: right;
   padding-right: 34px;
+  padding-bottom: 16px;
   margin-top: 16px;
   font-family: 'Raleway', sans-serif;
 }
 
-.nav ul {
+.nav-items ul {
   list-style: none;
   text-align: center;
   padding: 0;
   margin: 0;
 }
 
-.nav li {
+.nav-items li {
   display: inline-block;
   font-size: 1.2em;
   line-height: 25px;
   margin: 0 10px;
 }
 
-.nav a {
+.nav-items a {
   text-decoration: none;
   color: #e6e6e6;
   display: block;
   transition: .3s background-color;
 }
 
-.nav a.active {
+.nav-items a.active {
   border-bottom: 1px solid #e6e6e6;
 }
 
-.nav a:hover {
+.nav-items a:hover {
   color: lightblue;
   border-bottom: 1px solid lightblue;
 }

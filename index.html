@@ -3,20 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Raleway|Audiowide|Expletus+Sans" rel="stylesheet">
+  <link rel="stylesheet" href="reset.css">
   <link rel="stylesheet" href="main.css" type="text/css">
   <title>CSS Grid Test</title>
 </head>
 <body>
 
 <div class="container" id="container">
+
   <div class="header">
-    <div class="nav">
-      <ul>
-        <li><a class="active" href="#">Home</a></li>
-        <li class=""><a href="#">About Me</a></li>
-        <li class=""><a href="">Portfolio</a></li>
-      </ul>
+    <div class="pre-nav">
+      <img src="Assets/full-moon.svg" alt="" id="moon">
+      <img src="Assets/rocket.svg" alt="" id="rocket">
+
+      <span id="header-text">
+        <h1>Ben Lambillotte</h1>
+          <img src="Assets/saturn.svg" alt="" id="saturn">
+      </span>
+    </div>
+    <div class="nav" id="nav-bar">
+      <div class="nav-items">
+        <ul>
+          <li><a class="active" href="#">Home</a></li>
+          <li class=""><a href="#">About Me</a></li>
+          <li class=""><a href="">Portfolio</a></li>
+        </ul>
+      </div>
     </div>
   </div>
 
@@ -24,20 +37,20 @@
   <div class="body">
     <!-- <div class="content">Some Content Goes Here!</div> -->
 
-    <div class="scrollblock">
+    <div class="scrollblock" id="first-block">
       <div class="content-center">
         <img id="earth-pic" src="Assets/planet-earth.png" alt="">
-        I'm Centered
+          <h2>Hello World!</h2>
       </div>
     </div>
     <div class="scrollblock">
       <div class="content-center">
-        I'm Centered
+        <h2>Content Block</h2>
       </div>
     </div>
     <div class="scrollblock">
       <div class="content-center">
-        I'm Centered
+        <h2>Content Block</h2>
       </div>
     </div>
 
