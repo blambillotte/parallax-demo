@@ -1,68 +1,86 @@
 (function(){
 
-var viewportHeight = window.innerHeight;
+  var viewportHeight = window.innerHeight;
 
-var moon = document.getElementById('moon');
-var rocket = document.getElementById('rocket');
-var headerText = document.getElementById('header-text');
+  var moon = document.getElementById('moon');
+  var rocket = document.getElementById('rocket');
+  var headerText = document.getElementById('header-text');
 
-var navBar = document.getElementById('nav-bar');
-var navStick = false;
-// TODO: turn navStick into a generic headerIsShowing var. Then wrap subsequent functions into an IF statement.
-var firstBlock = document.getElementById('first-block');
+  var navBar = document.getElementById('nav-bar');
+  var navStick = false;
+  // TODO: turn navStick into a generic headerIsShowing var. Then wrap subsequent functions into an IF statement.
+  var firstBlock = document.getElementById('first-block');
 
-window.onscroll = function (e) {
-  var verticlalPosition;
-  // TODO: if offset results in less than a pixle, then don't repaint DOM. 
-  if (pageYOffset) {
-    verticlalPosition = pageYOffset;
-    //verticlalPosition = window.scrollY;
+  var NAV_BAR_CLASS_NAME = 'nav-fixed';
 
-  } else if (document.documentElement.clientHeight) { //ie
-    verticlalPosition = document.documentElement.scrollTop;
+  var verticalPosition;
 
-  } else if (document.body) { //ie quirks
-    verticlalPosition = document.body.scrollTop;
+  var ROCKET_CONFIG = {
+    maxXOffset: 600,
+    maxYOffset: 300,
+    rateOfXChange: 1.9,
+    rateOfYChange: 1
   }
 
-
-
-  ////////////Header Movement
-  //Background Movement
-  var verticalOffset = verticlalPosition / 3;
-  firstBlock.style.backgroundPosition = 'left '+ (verticalOffset) + '%';
-
-  //Moon Vertical Movement
-  var moonYOffset = verticlalPosition / 2;
-  moon.style.transform = 'translate(0px,' + moonYOffset +'px)'
-
-  //Moon Shrink
-  var moonWidth = 8 - (verticlalPosition / 200);
-  moon.style.width = moonWidth + '%';
-
-  //Rocket Movement
-  var rocketXOffset = Math.min(600, verticlalPosition * 1.9);
-  var rocketYOffset = Math.max(-300, verticlalPosition * -1);
-  rocket.style.transform = 'translate(' + rocketXOffset +'px, ' + rocketYOffset + 'px)';
-
-  //Rocket Size Grow
-  var rocketWidth = Math.min(8, 4 + (verticlalPosition / 50));
-  rocket.style.width = rocketWidth + '%';
-
-  //Header Text Movement
-  var headerTextYOffset = verticlalPosition / 2.5;
-  headerText.style.transform = 'translate(0px,' + headerTextYOffset +'px)'
-
-  //Sticky Header after scroll
-  //Div Sub-Header is defined as 32vh. Once scrolling beyond, then sticky header.
-  var stickPoint = .32 * viewportHeight;
-  if (verticlalPosition >= stickPoint && !navStick) {
-    navBar.classList.add('nav-fixed');
-    navStick = true;
-  } else if (verticlalPosition < stickPoint && navStick) {
-    navBar.classList.remove('nav-fixed');
-    navStick = false;
+  function getTranslateValue(x, y) {
+    return 'translate('+ x +'px,'+ y +'px)';
   }
-}
+
+  function propelRocket() {
+    var rocketXOffset = Math.min(ROCKET_CONFIG.maxXOffset, verticalPosition * ROCKET_CONFIG.rateOfXChange);
+    var rocketYOffset = Math.max(-ROCKET_CONFIG.maxYOffset, verticalPosition * -ROCKET_CONFIG.rateOfYChange);
+    rocket.style.transform = getTranslateValue(rocketXOffset, rocketYOffset);
+  }
+
+  window.onscroll = function (e) {
+    // TODO: if offset results in less than a pixle, then don't repaint DOM.
+    if (pageYOffset) {
+      verticalPosition = pageYOffset;
+      //verticalPosition = window.scrollY;
+
+    } else if (document.documentElement.clientHeight) { //ie
+      verticalPosition = document.documentElement.scrollTop;
+
+    } else if (document.body) { //ie quirks
+      verticalPosition = document.body.scrollTop;
+    }
+
+
+
+    ////////////Header Movement
+    //Background Movement
+    var verticalOffset = verticalPosition / 3;
+    firstBlock.style.backgroundPosition = 'left '+ (verticalOffset) + '%';
+
+    //Moon Vertical Movement
+    var moonYOffset = verticalPosition / 2;
+    moon.style.transform = getTranslateValue(0, moonYOffset);
+
+    //Moon Shrink
+    var moonWidth = 8 - (verticalPosition / 180);
+    moon.style.width = moonWidth + '%'; // TODO: Look at changing scale
+
+    //Rocket Movement
+    propelRocket();
+
+    //Rocket Size Grow
+    var rocketWidth = Math.min(8, 4 + (verticalPosition / 50));
+    rocket.style.width = rocketWidth + '%';
+
+    //Header Text Movement
+    var headerTextYOffset = verticalPosition / 2.5;
+    headerText.style.transform = getTranslateValue(0, headerTextYOffset);
+
+    //Sticky Header after scroll
+    //Div Sub-Header is defined as 32vh. Once scrolling beyond, then sticky header.
+    var stickPoint = .32 * viewportHeight; // TODO: MAKE BETTER
+    if (!navStick && verticalPosition >= stickPoint) {
+      navBar.classList.add(NAV_BAR_CLASS_NAME);
+      navStick = true;
+    } else if (navStick && verticalPosition < stickPoint) {
+      navBar.classList.remove(NAV_BAR_CLASS_NAME);
+      navStick = false;
+    }
+  }
 
 })();

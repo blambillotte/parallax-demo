@@ -96,6 +96,15 @@ h2 {
   height: 700px;
 }
 
+.partial {
+  height: 150px;
+  background-image: url("Assets/earth-view-from-satellite.jpg");
+  background-position: right top;
+  background-attachment: fixed;
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
 .content-center {
   padding-top: 16%;
 }
@@ -136,6 +145,7 @@ h2 {
   left: 15%;
   top: 17%;
   z-index: -5;
+  transition: width .3s linear;
 }
 
 #rocket {
